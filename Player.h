@@ -49,8 +49,14 @@ public:
   }
 
   void update() {
-    if (Keyboard::isKeyPressed(up_key)) body.move(0, -PlayerSpeed);
-    if (Keyboard::isKeyPressed(down_Key)) body.move(0, PlayerSpeed);
+    Vector2<unsigned int> windowSize = this->window->getSize();
+    Vector2f playerPosition = body.getPosition();
+    if (Keyboard::isKeyPressed(up_key) && playerPosition.y > 0 + PlayerOffset) {
+      body.move(0, -PlayerSpeed);
+    }
+    if (Keyboard::isKeyPressed(down_Key) && playerPosition.y < static_cast<float>(windowSize.y) - PlayerOffset) {
+      body.move(0, PlayerSpeed);
+    }
   }
 
   void draw() {

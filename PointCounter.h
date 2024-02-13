@@ -26,6 +26,8 @@ public:
     for (int i = 0; i < players->size(); i++) {
       Text text(to_string(scores[i]), *font, 20);
       text.setFillColor(Color::White);
+      text.setOutlineColor(Color::Black);
+      text.setOutlineThickness(1.0f);
       text.setStyle(Text::Bold);
       text.setPosition(players->at(i).getCoords().x - 35.0f,
                        20.0f);

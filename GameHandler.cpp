@@ -5,8 +5,8 @@
 #include <iostream>
 
 
-int WINDOW_WIDTH = 800;
-int WINDOW_HEIGHT = 600;
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
 
 GameHandler::GameHandler() {
 

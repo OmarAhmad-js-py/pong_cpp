@@ -10,6 +10,9 @@ using namespace std;
 float PlayerOffset = 50.0f;
 float PlayerSpeed = 10.0f;
 
+int WINDOW_WIDTH = 800;
+int WINDOW_HEIGHT = 600;
+
 int main() {
 
   RenderWindow *window = GameHandler::getInstance().getWindow();
@@ -34,7 +37,6 @@ int main() {
     }
 
     window->clear(Color::Black);
-
    for (auto &player: *players) {
       player.draw();
       player.update();
