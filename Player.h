@@ -6,6 +6,7 @@
 #endif//PONG_PLAYER_H
 
 #pragma once
+#include "GameHandler.h"
 #include "SFML/Graphics.hpp"
 
 using namespace sf;
@@ -15,17 +16,17 @@ enum PlayerSide {
   RIGHT = 1
 };
 
-float PlayerOffset = 50.0f;
-float PlayerSpeed = 10.0f;
+extern float PlayerOffset;
+extern float PlayerSpeed;
 
 class Player {
 public:
-  Player(RenderWindow *current_window, PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
-    this->window = current_window;
+  Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
+    this->window = GameHandler::getInstance().getWindow();
     this->pos_y = static_cast<float>(this->window->getSize().y / 2);
     RectangleShape _body;
     _body.setSize(Vector2f(width, height));
-    _body.setOrigin(width / 2, height / 2);
+    _body.setOrigin(0.0f, height / 2);
     _body.setFillColor(Color::White);
 
     float _pos_x;
@@ -43,6 +44,8 @@ public:
 
     this->up_key = up;
     this->down_Key = down;
+
+    this->side = side;
   }
 
   void update() {
@@ -54,6 +57,18 @@ public:
     window->draw(body);
   }
 
+  PlayerSide getSide() {
+    return side;
+  }
+
+  FloatRect getGlobalBounds() {
+    return body.getGlobalBounds();
+  }
+
+  Vector2f getCoords() {
+    return body.getPosition();
+  }
+
 private:
   Keyboard::Key up_key;
   Keyboard::Key down_Key;
@@ -62,5 +77,7 @@ private:
   float pos_y;
   float width = 30.0f;
   float height = 100.0f;
+
+  PlayerSide side = PlayerSide::LEFT;
 };
 #pragma clang diagnostic pop

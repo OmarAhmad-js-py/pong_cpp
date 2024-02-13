@@ -1,63 +1,51 @@
 #include "Ball.h"
 #include "Player.h"
+#include "PointCounter.h"
 #include "random"
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;
 
+float PlayerOffset = 50.0f;
+float PlayerSpeed = 10.0f;
+
 int main() {
-  random_device rd;
-  mt19937 engine(rd());
 
-  int WINDOW_HEIGHT = 600;
-  int WINDOW_WIDTH = 800;
+  RenderWindow *window = GameHandler::getInstance().getWindow();
 
-  sf::ContextSettings settings;
-  settings.antialiasingLevel = 8;
+  EntityHandler::getInstance().init_players();
+  EntityHandler::getInstance().init_ball();
+  EntityHandler::getInstance().init_pointCounter();
 
-  sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-                          "Pong",
-                          sf::Style::Titlebar | sf::Style::Close,
-                          settings);
-
-  window.setFramerateLimit(60);
-
-  Font main_font;
-  if (!main_font.loadFromFile("../assets/roboto.ttf"))
-    return EXIT_FAILURE;
-
-  vector<Player> players;
-
-  Player LeftPlayer = *new Player(&window, PlayerSide::LEFT, Keyboard::W, Keyboard::S);
-  Player RightPlayer = *new Player(&window, PlayerSide::RIGHT, Keyboard::Up, Keyboard::Down);
-
-  players.push_back(LeftPlayer);
-  players.push_back(RightPlayer);
-
-  Ball ball = *new Ball(&window, &engine);
+  vector<Player> *players = EntityHandler::getInstance().getPlayers();
+  Ball *ball = EntityHandler::getInstance().getBall();
+  PointCounter *pointCounter = EntityHandler::getInstance().getPointCounter();
 
   /**
   * Main Loop
   */
-  while (window.isOpen()) {
+  while (window->isOpen()) {
     Event event{};
-    while (window.pollEvent(event)) {
+    while (window->pollEvent(event)) {
       if (event.type == Event::Closed) {
-        window.close();
+        window->close();
       }
     }
 
-    window.clear(Color::Black);
+    window->clear(Color::Black);
 
-    for (auto &player: players) {
+   for (auto &player: *players) {
       player.draw();
       player.update();
     }
 
-    ball.draw();
+    ball->draw();
+    ball->update();
 
-    window.display();
+    pointCounter->draw();
+
+    window->display();
   }
 
   return 0;
