@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.26)
-project(untitled)
+project(pong)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(untitled main.cpp)
+add_executable(pong main.cpp
+        Player.h
+        Ball.h)
 
-target_link_libraries(untitled sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
