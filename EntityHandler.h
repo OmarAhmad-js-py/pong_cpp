@@ -23,10 +23,14 @@ public:
   void init_ball();
   void init_pointCounter();
 
+  int getCurrentBallOwnerIndex();
+  void setBallOwnerIndex(int index);
+
 private:
   vector<Player> players;
   Ball *ball{};
   PointCounter *pointCounter{};
+  int currentBallOwnerIndex = -1;
 
 public:
   // Disable copy and assign

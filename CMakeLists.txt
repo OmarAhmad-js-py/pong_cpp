@@ -12,6 +12,7 @@ add_executable(pong main.cpp
         GameHandler.cpp
         EntityHandler.h
         EntityHandler.cpp
+        player.cpp
 )
 
 target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

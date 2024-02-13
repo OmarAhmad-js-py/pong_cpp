@@ -49,3 +49,9 @@ Ball *EntityHandler::getBall() {
 PointCounter *EntityHandler::getPointCounter() {
   return pointCounter;
 }
+int EntityHandler::getCurrentBallOwnerIndex() {
+  return currentBallOwnerIndex;
+}
+void EntityHandler::setBallOwnerIndex(int index) {
+  currentBallOwnerIndex = index;
+}

@@ -1,12 +1,9 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "bugprone-integer-division"
 #ifndef PONG_PLAYER_H
 #define PONG_PLAYER_H
 
 #endif//PONG_PLAYER_H
 
 #pragma once
-#include "GameHandler.h"
 #include "SFML/Graphics.hpp"
 
 using namespace sf;
@@ -16,64 +13,16 @@ enum PlayerSide {
   RIGHT = 1
 };
 
-extern float PlayerOffset;
-extern float PlayerSpeed;
-
 class Player {
 public:
-  Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
-    this->window = GameHandler::getInstance().getWindow();
-    this->pos_y = static_cast<float>(this->window->getSize().y / 2);
-    RectangleShape _body;
-    _body.setSize(Vector2f(width, height));
-    _body.setOrigin(0.0f, height / 2);
-    _body.setFillColor(Color::White);
+  Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down);
 
-    float _pos_x;
-    switch (side) {
-      case PlayerSide::LEFT:
-        _pos_x = PlayerOffset;
-        break;
-      case PlayerSide::RIGHT:
-        _pos_x = static_cast<float>(this->window->getSize().x) - PlayerOffset - width;
-        break;
-    }
-
-    _body.setPosition(Vector2f(_pos_x, pos_y));
-    this->body = _body;
-
-    this->up_key = up;
-    this->down_Key = down;
-
-    this->side = side;
-  }
-
-  void update() {
-    Vector2<unsigned int> windowSize = this->window->getSize();
-    Vector2f playerPosition = body.getPosition();
-    if (Keyboard::isKeyPressed(up_key) && playerPosition.y > 0 + PlayerOffset) {
-      body.move(0, -PlayerSpeed);
-    }
-    if (Keyboard::isKeyPressed(down_Key) && playerPosition.y < static_cast<float>(windowSize.y) - PlayerOffset) {
-      body.move(0, PlayerSpeed);
-    }
-  }
-
-  void draw() {
-    window->draw(body);
-  }
-
-  PlayerSide getSide() {
-    return side;
-  }
-
-  FloatRect getGlobalBounds() {
-    return body.getGlobalBounds();
-  }
-
-  Vector2f getCoords() {
-    return body.getPosition();
-  }
+  void update(int index);
+  void draw();
+  PlayerSide getSide();
+  FloatRect getGlobalBounds();
+  Vector2f getCoords();
+  static bool isOwningBall(int index);
 
 private:
   Keyboard::Key up_key;
@@ -86,4 +35,3 @@ private:
 
   PlayerSide side = PlayerSide::LEFT;
 };
-#pragma clang diagnostic pop

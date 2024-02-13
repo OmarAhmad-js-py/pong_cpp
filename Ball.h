@@ -71,6 +71,7 @@ public:
         float newAngle = 180.0f - angle;
         angle = newAngle;
         angleChangePos = player.getCoords();
+        EntityHandler::getInstance().setBallOwnerIndex(index);
         break;
       }
     }

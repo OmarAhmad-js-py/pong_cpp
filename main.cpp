@@ -37,9 +37,11 @@ int main() {
     }
 
     window->clear(Color::Black);
-   for (auto &player: *players) {
+
+    for (int index = 0; index < players->size(); index++) {
+      Player &player = players->at(index);
       player.draw();
-      player.update();
+      player.update(index);
     }
 
     ball->draw();
