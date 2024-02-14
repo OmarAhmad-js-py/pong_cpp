@@ -1,6 +1,6 @@
 #include "Player.h"
-#include "EntityHandler.h"
-#include "GameHandler.h"
+#include "../EntityHandler/EntityHandler.h"
+#include "../GameHandler/GameHandler.h"
 extern float PlayerOffset;
 extern float PlayerSpeed;
 
@@ -64,4 +64,18 @@ FloatRect Player::getGlobalBounds() {
 
 Vector2f Player::getCoords() {
   return body.getPosition();
+}
+
+void Player::reset() {
+  float _pos_x;
+  switch (side) {
+    case PlayerSide::LEFT:
+      _pos_x = PlayerOffset;
+      break;
+    case PlayerSide::RIGHT:
+      _pos_x = static_cast<float>(this->window->getSize().x) - PlayerOffset - width;
+      break;
+  }
+
+  body.setPosition(Vector2f(_pos_x, pos_y));
 }

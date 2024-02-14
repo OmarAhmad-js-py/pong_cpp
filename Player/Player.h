@@ -23,6 +23,7 @@ public:
   FloatRect getGlobalBounds();
   Vector2f getCoords();
   static bool isOwningBall(int index);
+  void reset();
 
 private:
   Keyboard::Key up_key;
@@ -30,7 +31,7 @@ private:
   RectangleShape body;
   RenderWindow *window;
   float pos_y;
-  float width = 30.0f;
+  float width = 15.0f;
   float height = 100.0f;
 
   PlayerSide side = PlayerSide::LEFT;

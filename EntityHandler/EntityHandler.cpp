@@ -1,6 +1,6 @@
 #include "EntityHandler.h"
-#include "Ball.h"
-#include "PointCounter.h"
+#include "../Ball/Ball.h"
+#include "../PointCounter.h"
 #include <iostream>
 
 EntityHandler::EntityHandler() = default;
@@ -49,9 +49,17 @@ Ball *EntityHandler::getBall() {
 PointCounter *EntityHandler::getPointCounter() {
   return pointCounter;
 }
-int EntityHandler::getCurrentBallOwnerIndex() {
+int EntityHandler::getCurrentBallOwnerIndex() const {
   return currentBallOwnerIndex;
 }
 void EntityHandler::setBallOwnerIndex(int index) {
   currentBallOwnerIndex = index;
+}
+
+void EntityHandler::reset() {
+  currentBallOwnerIndex = -1;
+  ball->reset();
+  for (auto &player : players) {
+    player.reset();
+  }
 }

@@ -1,7 +1,7 @@
 #include "GameHandler.h"
-#include "Ball.h"
-#include "Player.h"
-#include "PointCounter.h"
+#include "../Ball/Ball.h"
+#include "../Player/Player.h"
+#include "../PointCounter.h"
 #include <iostream>
 
 

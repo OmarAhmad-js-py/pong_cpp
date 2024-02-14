@@ -1,7 +1,7 @@
 #ifndef PONG_ENTITYHANDLER_H
 #define PONG_ENTITYHANDLER_H
 
-#include "Player.h"
+#include "../Player/Player.h"
 #include "SFML/Graphics.hpp"
 
 class Ball;
@@ -23,13 +23,15 @@ public:
   void init_ball();
   void init_pointCounter();
 
-  int getCurrentBallOwnerIndex();
+  [[nodiscard]] int getCurrentBallOwnerIndex() const;
   void setBallOwnerIndex(int index);
+
+  void reset();
 
 private:
   vector<Player> players;
   Ball *ball{};
-  PointCounter *pointCounter{};
+  PointCounter *pointCounter;
   int currentBallOwnerIndex = -1;
 
 public:

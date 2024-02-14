@@ -1,5 +1,5 @@
-#include "Ball.h"
-#include "Player.h"
+#include "Ball/Ball.h"
+#include "Player/Player.h"
 #include "PointCounter.h"
 #include "random"
 #include <SFML/Graphics.hpp>

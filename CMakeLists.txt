@@ -4,15 +4,17 @@ project(pong)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(pong main.cpp
-        Player.h
-        Ball.h
+        Player/Player.h
+        Ball/Ball.h
         RandomEngine.h
         PointCounter.h
-        GameHandler.h
-        GameHandler.cpp
-        EntityHandler.h
-        EntityHandler.cpp
-        player.cpp
+        GameHandler/GameHandler.h
+        GameHandler/GameHandler.cpp
+        EntityHandler/EntityHandler.h
+        EntityHandler/EntityHandler.cpp
+        Player/player.cpp
+        Ball/Ball.cpp
+        PointCounter.cpp
 )
 
 target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
