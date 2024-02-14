@@ -15,6 +15,8 @@ add_executable(pong main.cpp
         Player/player.cpp
         Ball/Ball.cpp
         PointCounter/PointCounter.cpp
+        PowerUp/PowerUp.h
+        PowerUp/SpeedPowerUp.h
 )
 
 target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

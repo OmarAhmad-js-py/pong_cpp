@@ -4,14 +4,11 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "bugprone-integer-division"
 Ball::Ball() {
-  cout << "Ball constructor started" << endl;
+  cout << "Ball: initializing" << endl;
   this->window = GameHandler::getInstance().getWindow();
-  cout << "In Ball constructor. Checking window properties:\n";
-  cout << "Window size: " << this->window->getSize().x << ", " << this->window->getSize().y << endl;
-  cout << "Is window open: " << this->window->isOpen() << endl;
-  cout << "Ball constructor got window" << endl;
+  cout << "Ball: Constructor got window" << endl;
   this->players = EntityHandler::getInstance().getPlayers();
-  cout << "Ball constructor got players" << endl;
+  cout << "Ball: Constructor got players" << endl;
 
   this->pos_y = static_cast<float>(this->window->getSize().y / 2);
   this->pos_x = static_cast<float>(this->window->getSize().x / 2);
@@ -21,12 +18,18 @@ Ball::Ball() {
   _body.setOrigin(radius, radius);
   _body.setFillColor(Color::White);
 
+  cout << "Ball: Constructor created body" << endl;
+
   mt19937 &engine = RandomEngine::getInstance().getEngine();
   uniform_int_distribution<> startingAngle(0, 360);
+
+  cout << "Ball: Constructor got random engine" << endl;
 
   this->angle = static_cast<float>(startingAngle(engine));
 
   this->body = _body;
+
+  cout << "Ball: initialized" << endl;
 }
 #pragma clang diagnostic pop
 
@@ -52,7 +55,7 @@ void Ball::update() {
   for (it = players->begin(); it != players->end(); ++it, ++index) {
     Player &player = *it;
     if (player.getGlobalBounds().intersects(body.getGlobalBounds())) {
-     angle = 180 - angle;
+      angle = 180 - angle;
       EntityHandler::getInstance().setBallOwnerIndex(index);
       break;
     }

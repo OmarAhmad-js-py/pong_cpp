@@ -1,6 +1,7 @@
 #include "Ball/Ball.h"
 #include "Player/Player.h"
 #include "PointCounter/PointCounter.h"
+#include "PowerUp/SpeedPowerUp.h"
 #include "random"
 #include <SFML/Graphics.hpp>
 
@@ -19,10 +20,18 @@ int main() {
   Ball *ball = EntityHandler::getInstance().getBall();
   PointCounter *pointCounter = EntityHandler::getInstance().getPointCounter();
 
+  SpeedPowerUp speedPowerUp;
+
+  players->at(0).applyPowerUp(&speedPowerUp);
+
+  Clock clock;
   /**
   * Main Loop
   */
   while (window->isOpen()) {
+
+    Time deltaTime = clock.restart();
+
     Event event{};
     while (window->pollEvent(event)) {
       if (event.type == Event::Closed) {
@@ -35,7 +44,7 @@ int main() {
     for (int index = 0; index < players->size(); index++) {
       Player &player = players->at(index);
       player.draw();
-      player.update(index);
+      player.update(index, deltaTime);
     }
 
     ball->draw();

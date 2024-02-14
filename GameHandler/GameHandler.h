@@ -26,7 +26,6 @@ public:
   void operator=(const GameHandler &) = delete;
   int window_height;
   int window_width;
-  float player_speed;
   float player_offset;
 };
 

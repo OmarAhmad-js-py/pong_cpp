@@ -29,7 +29,6 @@ private:
   float pos_y;
   float pos_x;
   float angle = 0.0f;
-  Vector2f angleChangePos;
   float radius = 15.0f;
   float speed = 10.0f;
 };

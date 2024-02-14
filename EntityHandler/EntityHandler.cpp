@@ -7,30 +7,30 @@ EntityHandler::EntityHandler() = default;
 
 void EntityHandler::init_players() {
   // Initialize players
-  cout << "Initializing players" << endl;
+  cout << "EntityHandler: Initializing players" << endl;
   vector<Player> _players;
   _players.emplace_back(PlayerSide::LEFT, Keyboard::W, Keyboard::S);
   _players.emplace_back(PlayerSide::RIGHT, Keyboard::Up, Keyboard::Down);
 
   this->players = _players;
 
-  cout << "Players created" << endl;
+  cout << "EntityHandler: Players initialized" << endl;
 }
 
 void EntityHandler::init_ball() {
-  cout << "Initializing ball" << endl;
+  cout << "EntityHandler: Initializing ball" << endl;
   // Initialize ball
   this->ball = new Ball();
 
-  cout << "Ball created" << endl;
+  cout << "EntityHandler: Ball initialized" << endl;
 }
 
 void EntityHandler::init_pointCounter() {
-  cout << "Initializing point counter" << endl;
+  cout << "EntityHandler: Initializing pointCounter" << endl;
   // Initialize point counter
   this->pointCounter = new PointCounter();
 
-  cout << "PointCounter created" << endl;
+  cout << "EntityHandler: PointCounter initialized" << endl;
 }
 
 EntityHandler &EntityHandler::getInstance() {
@@ -59,7 +59,7 @@ void EntityHandler::setBallOwnerIndex(int index) {
 void EntityHandler::reset() {
   currentBallOwnerIndex = -1;
   ball->reset();
-  for (auto &player : players) {
+  for (auto &player: players) {
     player.reset();
   }
 }

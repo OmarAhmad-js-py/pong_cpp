@@ -4,7 +4,9 @@
 #endif//PONG_PLAYER_H
 
 #pragma once
+#include "../PowerUp/PowerUp.h"
 #include "SFML/Graphics.hpp"
+#include <memory>
 
 using namespace sf;
 
@@ -17,13 +19,21 @@ class Player {
 public:
   Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down);
 
-  void update(int index);
+  void update(int index, Time deltaTime);
   void draw();
   PlayerSide getSide();
   FloatRect getGlobalBounds();
-  Vector2f getCoords();
+  RectangleShape *getBody();
   static bool isOwningBall(int index);
+
+  float initialSpeed = 10.0f;
+  void setSpeed(float _speed);
+
   void reset();
+
+  void applyPowerUp(PowerUp *powerUp);
+  void removeExpiredPowerUps();
+
 
 private:
   Keyboard::Key up_key;
@@ -33,6 +43,9 @@ private:
   float pos_y;
   float width = 15.0f;
   float height = 100.0f;
+  float speed = 10.0f;
 
   PlayerSide side = PlayerSide::LEFT;
+
+  std::vector<PowerUp *> activePowerUps;
 };

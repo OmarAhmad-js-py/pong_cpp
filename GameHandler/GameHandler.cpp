@@ -1,14 +1,11 @@
 #include "GameHandler.h"
-#include "../Ball/Ball.h"
-#include "../Player/Player.h"
 #include "../PointCounter/PointCounter.h"
 #include <iostream>
 
 GameHandler::GameHandler() {
-  cout << "GameHandler::GameHandler()" << endl;
+  cout << "GameHandler: created" << endl;
   this->window_height = 600;
   this->window_width = 800;
-  this->player_speed = 10;
   this->player_offset = 50;
   // Initialize window
   ContextSettings settings;
@@ -18,14 +15,14 @@ GameHandler::GameHandler() {
   this->window.create(VideoMode(this->window_width, this->window_height), "Pong", Style::Default, settings);
   this->window.setFramerateLimit(60);
 
-  cout << "Window created" << endl;
+  cout << "GameHandler: Window created" << endl;
 
 
   // Initialize font
   if (!this->main_font.loadFromFile("../assets/roboto.ttf"))
     exit(1);
 
-  cout << "Font loaded" << endl;
+  cout << "GameHandler: Font loaded" << endl;
 }
 
 GameHandler &GameHandler::getInstance() {
