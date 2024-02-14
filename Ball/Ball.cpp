@@ -1,5 +1,5 @@
 #include "Ball.h"
-#include "../PointCounter.h"
+#include "../PointCounter/PointCounter.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "bugprone-integer-division"
@@ -37,12 +37,12 @@ void Ball::update() {
     angle = -angle;
   }
   if (pos_x >= static_cast<float>(window->getSize().x) - radius || pos_x <= radius) {
-    PlayerSide side = pos_x <= radius ? PlayerSide::LEFT : PlayerSide::RIGHT;
-    printf("Ball collided on side %s\n", side == PlayerSide::LEFT ? "LEFT" : "RIGHT");
+
     auto currentOwner = EntityHandler::getInstance().getCurrentBallOwnerIndex();
     if (currentOwner != -1 && currentOwner <= players->size()) {
       EntityHandler::getInstance().getPointCounter()->increment(currentOwner);
     }
+
     EntityHandler::getInstance().reset();
   }
 

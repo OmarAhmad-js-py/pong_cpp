@@ -1,5 +1,5 @@
 #include "PointCounter.h"
-#include "EntityHandler/EntityHandler.h"
+#include "../EntityHandler/EntityHandler.h"
 #include <iostream>
 
 PointCounter::PointCounter() {
@@ -11,12 +11,20 @@ PointCounter::PointCounter() {
 
 void PointCounter::draw() {
   for (int i = 0; i < players->size(); i++) {
+    auto &player = players->at(i);
     Text text(to_string(scores[i]), *font, 20);
     text.setFillColor(Color::White);
     text.setOutlineColor(Color::Black);
     text.setOutlineThickness(1.0f);
     text.setStyle(Text::Bold);
-    text.setPosition(players->at(i).getCoords().x - 35.0f, 20.0f);
+    switch (player.getSide()) {
+      case PlayerSide::LEFT:
+        text.setPosition(GameHandler::getInstance().player_offset, 0);
+        break;
+      case PlayerSide::RIGHT:
+        text.setPosition(GameHandler::getInstance().window_width - 110 - GameHandler::getInstance().player_offset, 0);
+        break;
+    }
     text.setString("Player " + to_string(i + 1) + ": " + to_string(scores[i]));
     window->draw(text);
   }

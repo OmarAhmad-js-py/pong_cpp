@@ -1,17 +1,11 @@
 #include "Ball/Ball.h"
 #include "Player/Player.h"
-#include "PointCounter.h"
+#include "PointCounter/PointCounter.h"
 #include "random"
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;
-
-float PlayerOffset = 50.0f;
-float PlayerSpeed = 10.0f;
-
-int WINDOW_WIDTH = 800;
-int WINDOW_HEIGHT = 600;
 
 int main() {
 

@@ -1,6 +1,6 @@
 #include "EntityHandler.h"
 #include "../Ball/Ball.h"
-#include "../PointCounter.h"
+#include "../PointCounter/PointCounter.h"
 #include <iostream>
 
 EntityHandler::EntityHandler() = default;

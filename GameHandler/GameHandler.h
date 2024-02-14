@@ -24,6 +24,10 @@ public:
   // Disable copy and assign
   GameHandler(const GameHandler &) = delete;
   void operator=(const GameHandler &) = delete;
+  int window_height;
+  int window_width;
+  float player_speed;
+  float player_offset;
 };
 
 #endif//PONG_GAMEHANDLER_H

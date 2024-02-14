@@ -3,8 +3,8 @@
 
 #endif//PONG_POINTCOUNTER_H
 
-#include "GameHandler/GameHandler.h"
-#include "Player/Player.h"
+#include "../GameHandler/GameHandler.h"
+#include "../Player/Player.h"
 #include "SFML/Graphics.hpp"
 
 using namespace std;

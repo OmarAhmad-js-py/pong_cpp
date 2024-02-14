@@ -1,12 +1,10 @@
 #include "Player.h"
 #include "../EntityHandler/EntityHandler.h"
 #include "../GameHandler/GameHandler.h"
-extern float PlayerOffset;
-extern float PlayerSpeed;
 
 Player::Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
   this->window = GameHandler::getInstance().getWindow();
-  this->pos_y = static_cast<float>(this->window->getSize().y / 2); // NOLINT(*-integer-division)
+  this->pos_y = static_cast<float>(this->window->getSize().y / 2);// NOLINT(*-integer-division)
   RectangleShape _body;
   _body.setSize(Vector2f(width, height));
   _body.setOrigin(0.0f, height / 2);
@@ -15,10 +13,10 @@ Player::Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
   float _pos_x;
   switch (side) {
     case PlayerSide::LEFT:
-      _pos_x = PlayerOffset;
+      _pos_x = GameHandler::getInstance().player_offset;
       break;
     case PlayerSide::RIGHT:
-      _pos_x = static_cast<float>(this->window->getSize().x) - PlayerOffset - width;
+      _pos_x = static_cast<float>(this->window->getSize().x) - GameHandler::getInstance().player_offset - width;
       break;
   }
 
@@ -34,15 +32,16 @@ Player::Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
 void Player::update(int index) {
   bool isBallOwner = isOwningBall(index);
   if (isBallOwner) body.setFillColor(Color::Red);
-  else body.setFillColor(Color::White);
+  else
+    body.setFillColor(Color::White);
 
   Vector2<unsigned int> windowSize = this->window->getSize();
   Vector2f playerPosition = body.getPosition();
-  if (Keyboard::isKeyPressed(up_key) && playerPosition.y > 0 + PlayerOffset) {
-    body.move(0, -PlayerSpeed);
+  if (Keyboard::isKeyPressed(up_key) && playerPosition.y > 0 + GameHandler::getInstance().player_offset) {
+    body.move(0, -GameHandler::getInstance().player_speed);
   }
-  if (Keyboard::isKeyPressed(down_Key) && playerPosition.y < static_cast<float>(windowSize.y) - PlayerOffset) {
-    body.move(0, PlayerSpeed);
+  if (Keyboard::isKeyPressed(down_Key) && playerPosition.y < static_cast<float>(windowSize.y) - GameHandler::getInstance().player_offset) {
+    body.move(0, GameHandler::getInstance().player_speed);
   }
 }
 
@@ -70,10 +69,10 @@ void Player::reset() {
   float _pos_x;
   switch (side) {
     case PlayerSide::LEFT:
-      _pos_x = PlayerOffset;
+      _pos_x = GameHandler::getInstance().player_offset;
       break;
     case PlayerSide::RIGHT:
-      _pos_x = static_cast<float>(this->window->getSize().x) - PlayerOffset - width;
+      _pos_x = static_cast<float>(this->window->getSize().x) - GameHandler::getInstance().player_offset - width;
       break;
   }
 

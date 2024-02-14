@@ -1,26 +1,24 @@
 #include "GameHandler.h"
 #include "../Ball/Ball.h"
 #include "../Player/Player.h"
-#include "../PointCounter.h"
+#include "../PointCounter/PointCounter.h"
 #include <iostream>
 
-
-extern int WINDOW_WIDTH;
-extern int WINDOW_HEIGHT;
-
 GameHandler::GameHandler() {
-
   cout << "GameHandler::GameHandler()" << endl;
+  this->window_height = 600;
+  this->window_width = 800;
+  this->player_speed = 10;
+  this->player_offset = 50;
   // Initialize window
   ContextSettings settings;
   settings.depthBits = 24;
   settings.stencilBits = 8;
   settings.antialiasingLevel = 4;
-  this->window.create(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong", Style::Default, settings);
+  this->window.create(VideoMode(this->window_width, this->window_height), "Pong", Style::Default, settings);
   this->window.setFramerateLimit(60);
 
   cout << "Window created" << endl;
-
 
 
   // Initialize font
@@ -28,8 +26,6 @@ GameHandler::GameHandler() {
     exit(1);
 
   cout << "Font loaded" << endl;
-
-
 }
 
 GameHandler &GameHandler::getInstance() {
