@@ -4,7 +4,7 @@
 
 Player::Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
   this->window = GameHandler::getInstance().getWindow();
-  this->pos_y = static_cast<float>(this->window->getSize().y / 2);// NOLINT(*-integer-division)
+  this->pos_y = static_cast<float>(this->window->getSize().y / 2); // NOLINT(*-integer-division)
   RectangleShape _body;
   _body.setSize(Vector2f(width, height));
   _body.setOrigin(0.0f, height / 2);
@@ -13,10 +13,10 @@ Player::Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
   float _pos_x;
   switch (side) {
     case PlayerSide::LEFT:
-      _pos_x = GameHandler::getInstance().player_offset;
+      _pos_x = playerOffset;
       break;
     case PlayerSide::RIGHT:
-      _pos_x = static_cast<float>(this->window->getSize().x) - GameHandler::getInstance().player_offset - width;
+      _pos_x = static_cast<float>(this->window->getSize().x) - playerOffset - width;
       break;
   }
 
@@ -41,6 +41,8 @@ void Player::update(int index, Time deltaTime) {
     powerUp->applyTo(*this);
   }
 
+  body.setSize(Vector2f(width, height));
+  body.setOrigin(0.0f, height / 2);
 
   bool isBallOwner = isOwningBall(index);
   if (isBallOwner) body.setFillColor(Color::Red);
@@ -49,10 +51,10 @@ void Player::update(int index, Time deltaTime) {
 
   Vector2<unsigned int> windowSize = this->window->getSize();
   Vector2f playerPosition = body.getPosition();
-  if (Keyboard::isKeyPressed(up_key) && playerPosition.y > 0 + GameHandler::getInstance().player_offset) {
+  if (Keyboard::isKeyPressed(up_key) && playerPosition.y >= 0 + body.getSize().y / 2) {
     body.move(0, -speed);
   }
-  if (Keyboard::isKeyPressed(down_Key) && playerPosition.y < static_cast<float>(windowSize.y) - GameHandler::getInstance().player_offset) {
+  if (Keyboard::isKeyPressed(down_Key) && playerPosition.y < static_cast<float>(windowSize.y) - body.getSize().y / 2) {
     body.move(0, speed);
   }
 }
@@ -78,10 +80,10 @@ void Player::reset() {
   float _pos_x;
   switch (side) {
     case PlayerSide::LEFT:
-      _pos_x = GameHandler::getInstance().player_offset;
+      _pos_x = playerOffset;
       break;
     case PlayerSide::RIGHT:
-      _pos_x = static_cast<float>(this->window->getSize().x) - GameHandler::getInstance().player_offset - width;
+      _pos_x = static_cast<float>(this->window->getSize().x) - playerOffset - width;
       break;
   }
 
@@ -125,4 +127,7 @@ void Player::removeExpiredPowerUps() {
   activePowerUps.erase(
       expiredPowerUpsIterator,
       activePowerUps.end());
+}
+void Player::setHeight(float _height) {
+  this->height = _height;
 }

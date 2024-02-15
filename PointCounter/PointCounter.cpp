@@ -19,10 +19,10 @@ void PointCounter::draw() {
     text.setStyle(Text::Bold);
     switch (player.getSide()) {
       case PlayerSide::LEFT:
-        text.setPosition(GameHandler::getInstance().player_offset, 0);
+        text.setPosition(player.playerOffset, 0);
         break;
       case PlayerSide::RIGHT:
-        text.setPosition(GameHandler::getInstance().window_width - 110 - GameHandler::getInstance().player_offset, 0);
+        text.setPosition(GameHandler::getInstance().window_width - 110 - player.playerOffset, 0);
         break;
     }
     text.setString("Player " + to_string(i + 1) + ": " + to_string(scores[i]));

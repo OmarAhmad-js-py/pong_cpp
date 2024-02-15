@@ -42,10 +42,25 @@ public:
     m_timeRemaining -= delta;
   }
 
+  void setAssingedToPlayer() {
+    m_isAssigned = true;
+  }
+
+  bool isAssignedToPlayer() {
+    return m_isAssigned;
+  }
+
+  void setPosition(const Vector2f &position) {
+    m_position = position;
+    m_sprite.setPosition(position);
+  }
+
 protected:
   Texture &m_texture;
   Time m_duration;
   Sprite m_sprite;
+  bool m_isAssigned = false;
+  Vector2f m_position;
 
 private:
   Time m_timeRemaining;

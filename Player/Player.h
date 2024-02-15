@@ -26,8 +26,13 @@ public:
   RectangleShape *getBody();
   static bool isOwningBall(int index);
 
+  float playerOffset = 50.0f;
+
   float initialSpeed = 10.0f;
   void setSpeed(float _speed);
+
+  float initialHeight = 100.0f;
+  void setHeight(float _height);
 
   void reset();
 
@@ -42,8 +47,8 @@ private:
   RenderWindow *window;
   float pos_y;
   float width = 15.0f;
-  float height = 100.0f;
-  float speed = 10.0f;
+  float height = initialHeight;
+  float speed = initialSpeed;
 
   PlayerSide side = PlayerSide::LEFT;
 

@@ -33,6 +33,7 @@ private:
   Ball *ball{};
   PointCounter *pointCounter;
   int currentBallOwnerIndex = -1;
+  vector<PowerUp *> powerUps;
 
 public:
   // Disable copy and assign

@@ -29,7 +29,6 @@ public:
   static Texture &loadTexture() {
     static Texture texture;
     if (!texture.loadFromFile("../assets/powerups/speed.png")) {
-      // handle error here
       throw std::runtime_error("Failed to load speed power-up texture");
     }
     return texture;

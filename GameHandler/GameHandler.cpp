@@ -6,7 +6,6 @@ GameHandler::GameHandler() {
   cout << "GameHandler: created" << endl;
   this->window_height = 600;
   this->window_width = 800;
-  this->player_offset = 50;
   // Initialize window
   ContextSettings settings;
   settings.depthBits = 24;

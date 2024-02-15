@@ -1,7 +1,6 @@
 #include "Ball/Ball.h"
 #include "Player/Player.h"
 #include "PointCounter/PointCounter.h"
-#include "PowerUp/SpeedPowerUp.h"
 #include "random"
 #include <SFML/Graphics.hpp>
 
@@ -20,11 +19,9 @@ int main() {
   Ball *ball = EntityHandler::getInstance().getBall();
   PointCounter *pointCounter = EntityHandler::getInstance().getPointCounter();
 
-  SpeedPowerUp speedPowerUp;
-
-  players->at(0).applyPowerUp(&speedPowerUp);
-
   Clock clock;
+  Clock powerUpClock;
+  Time powerUpTime = seconds(5);
   /**
   * Main Loop
   */
@@ -51,6 +48,13 @@ int main() {
     ball->update();
 
     pointCounter->draw();
+
+    if (powerUpClock.getElapsedTime() > powerUpTime) {
+      if (EntityHandler::getInstance().getCurrentBallOwnerIndex() == -1) break;
+      printf("Power Up Time Expired\n");
+
+      powerUpClock.restart();
+    }
 
     window->display();
   }
