@@ -2,6 +2,7 @@
 #define PONG_POWERUP_H
 
 #include "../EntityHandler/EntityHandler.h"
+#include "../TextureHandler/TextureHandler.h"
 #include "../GameHandler/GameHandler.h"
 #include <SFML/Graphics.hpp>
 

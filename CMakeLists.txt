@@ -21,6 +21,10 @@ add_executable(pong main.cpp
         PowerUp/GrowPowerUp.h
         PowerUp/ShrinkPowerUp.h
         PowerUp/PowerUp.cpp
+        TextureHandler/TextureHandler.cpp
+        TextureHandler/TextureHandler.h
+        SoundHandler/SoundHandler.cpp
+        SoundHandler/SoundHandler.h
 )
 
 target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

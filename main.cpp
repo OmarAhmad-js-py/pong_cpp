@@ -5,6 +5,7 @@
 #include "PowerUp/ShrinkPowerUp.h"
 #include "PowerUp/SlowPowerUp.h"
 #include "PowerUp/SpeedPowerUp.h"
+#include "SoundHandler/SoundHandler.h"
 #include "random"
 #include <SFML/Graphics.hpp>
 
@@ -37,6 +38,9 @@ int main() {
   EntityHandler::getInstance().init_ball();
   EntityHandler::getInstance().init_pointCounter();
 
+  SoundHandler::getInstance();
+  TextureHandler::getInstance();
+
   vector<Player *> *players = EntityHandler::getInstance().getPlayers();
   Ball *ball = EntityHandler::getInstance().getBall();
   PointCounter *pointCounter = EntityHandler::getInstance().getPointCounter();
@@ -45,8 +49,6 @@ int main() {
   Clock clock;
   Clock powerUpClock;
   Time powerUpTime = seconds(5);
-
-
 
   /**
   * Main Loop
@@ -59,6 +61,11 @@ int main() {
     while (window->pollEvent(event)) {
       if (event.type == Event::Closed) {
         window->close();
+      }
+      if (event.type == Event::KeyPressed) {
+        if (event.key.code == Keyboard::Escape) {
+          SoundHandler::getInstance().playSound(GameSounds[BOUNCE]);
+        }
       }
     }
 

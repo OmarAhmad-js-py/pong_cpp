@@ -2,7 +2,7 @@
 
 PowerUp::PowerUp(const std::string &texturePath, sf::Time duration)
     : m_duration(duration),
-      m_texture(GameHandler::getInstance().getTexture(texturePath)),
+      m_texture(TextureHandler::getInstance().getTexture(texturePath)),
       m_timeRemaining(duration) {
   m_window = GameHandler::getInstance().getWindow();
 

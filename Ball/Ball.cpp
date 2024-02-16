@@ -1,5 +1,6 @@
 #include "Ball.h"
 #include "../PointCounter/PointCounter.h"
+#include "../SoundHandler/SoundHandler.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "bugprone-integer-division"
@@ -43,6 +44,7 @@ void Ball::update() {
   if (pos_y >= static_cast<float>(window->getSize().y) - radius || pos_y <= radius) {
     // Flip the angle if collision is on the top or bottom
     angle = -angle;
+    SoundHandler::getInstance().playSound(GameSounds[BOUNCE]);
   }
   if (pos_x >= static_cast<float>(window->getSize().x) - radius || pos_x <= radius) {
 
@@ -79,6 +81,7 @@ void Ball::update() {
     Player *player = *it;
     if (player->getGlobalBounds().intersects(body.getGlobalBounds())) {
       angle = 180 - angle;
+      SoundHandler::getInstance().playSound(GameSounds[BOUNCE]);
       EntityHandler::getInstance().setBallOwnerIndex(index);
       break;
     }
