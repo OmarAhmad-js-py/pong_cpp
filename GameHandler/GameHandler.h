@@ -15,6 +15,9 @@ public:
   RenderWindow *getWindow();
   Font &getFont();
 
+  void loadTexture(const string& path);
+  Texture &getTexture(const string& path);
+
 private:
   RenderWindow window;
   Font main_font;
@@ -26,6 +29,7 @@ public:
   void operator=(const GameHandler &) = delete;
   int window_height;
   int window_width;
+  map<string, Texture> textures;
 };
 
 #endif//PONG_GAMEHANDLER_H

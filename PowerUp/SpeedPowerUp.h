@@ -9,7 +9,7 @@ using namespace sf;
 class SpeedPowerUp : public PowerUp {
 public:
   SpeedPowerUp()
-      : PowerUp(loadTexture("../assets/powerups/speed.png"), seconds(15.0f)) {
+      : PowerUp("../assets/power_ups/speed.png", seconds(15.0f)) {
     printf("Power up: Created speed power-up with lifetime of %i seconds\n", (int) this->m_duration.asSeconds());
     m_effect = PowerUpEffect::GOOD;
   }

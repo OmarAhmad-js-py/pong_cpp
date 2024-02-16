@@ -16,6 +16,24 @@ GameHandler::GameHandler() {
 
   cout << "GameHandler: Window created" << endl;
 
+  string texturesPaths[] = {
+      "../assets/power_ups/grow.png",
+      "../assets/power_ups/shrink.png",
+      "../assets/power_ups/slow.png",
+      "../assets/power_ups/speed.png",
+  };
+
+  cout << "GameHandler: Loading "
+       <<sizeof(texturesPaths) / sizeof(texturesPaths[0])
+       << " texturesPaths" << endl;
+
+  for (auto &texture: texturesPaths) {
+    cout << "GameHandler: Loading texture: " << texture << endl;
+    this->loadTexture(texture);
+  }
+
+  cout << "GameHandler: Textures loaded" << endl;
+
 
   // Initialize font
   if (!this->main_font.loadFromFile("../assets/roboto.ttf"))
@@ -34,4 +52,18 @@ RenderWindow *GameHandler::getWindow() {
 }
 Font &GameHandler::getFont() {
   return this->main_font;
+}
+void GameHandler::loadTexture(const string &path) {
+  sf::Texture texture;
+  if (!texture.loadFromFile(path)) {
+    throw runtime_error("Failed to load texture: " + path);
+  }
+  textures[path] = texture;
+}
+Texture &GameHandler::getTexture(const string &path) {
+  auto it = textures.find(path);
+  if (it != textures.end())
+    return it->second;
+  else
+    throw runtime_error("Texture not loaded: " + path);
 }

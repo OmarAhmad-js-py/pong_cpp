@@ -8,15 +8,17 @@
 class Player;
 
 enum PowerUpEffect {
+  NONE,
   BAD,
   GOOD
 };
 
 using namespace sf;
+using namespace std;
 
 class PowerUp {
 public:
-  PowerUp(Texture &texture, Time duration);
+  PowerUp(const string& texturePath, Time duration);
 
   virtual void applyTo(Player *player) = 0;
 
@@ -30,15 +32,9 @@ public:
 
   void setAssignedToPlayer();
 
-  bool isAssignedToPlayer();
-
   void setPosition(const Vector2f &position);
 
   FloatRect getGlobalBounds();
-
-  static Texture &loadTexture(const std::string &path);
-
-  Sprite createSprite() const;
 
   PowerUpEffect getEffect() const;
 
@@ -47,10 +43,9 @@ protected:
   Time m_duration;
   Sprite m_sprite;
   bool m_isAssigned = false;
-  Vector2f m_position;
   RenderWindow *m_window;
   float m_size = 32.0f;
-  PowerUpEffect m_effect;
+  PowerUpEffect m_effect = PowerUpEffect::NONE;
 
 private:
   Time m_timeRemaining;
