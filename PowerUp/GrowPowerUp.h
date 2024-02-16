@@ -9,8 +9,9 @@ using namespace sf;
 class GrowPowerUp : public PowerUp {
 public:
   GrowPowerUp()
-      : PowerUp(loadTexture("../assets/powerups/grow.png"), seconds(5.0f)) {
+      : PowerUp(loadTexture("../assets/powerups/grow.png"), seconds(15.0f)) {
     printf("Power up: Created grow power-up with lifetime of %i seconds\n", (int) this->m_duration.asSeconds());
+    m_effect = PowerUpEffect::GOOD;
   }
 
   void applyTo(Player *player) override {

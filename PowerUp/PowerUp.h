@@ -7,6 +7,11 @@
 
 class Player;
 
+enum PowerUpEffect {
+  BAD,
+  GOOD
+};
+
 using namespace sf;
 
 class PowerUp {
@@ -35,6 +40,8 @@ public:
 
   Sprite createSprite() const;
 
+  PowerUpEffect getEffect() const;
+
 protected:
   Texture &m_texture;
   Time m_duration;
@@ -43,6 +50,7 @@ protected:
   Vector2f m_position;
   RenderWindow *m_window;
   float m_size = 32.0f;
+  PowerUpEffect m_effect;
 
 private:
   Time m_timeRemaining;

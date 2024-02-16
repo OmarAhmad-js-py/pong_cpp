@@ -10,8 +10,9 @@ class ShrinkPowerUp : public PowerUp {
 public:
   ShrinkPowerUp()
       : PowerUp(loadTexture("../assets/powerups/shrink.png"),
-                seconds(5.0f)) {
+                seconds(15.0f)) {
     printf("Power up: Created shrink power-up with lifetime of %i seconds\n", (int) this->m_duration.asSeconds());
+    m_effect = PowerUpEffect::BAD;
   }
 
   void applyTo(Player *player) override {

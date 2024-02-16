@@ -57,8 +57,15 @@ void Ball::update() {
   if (!availablePowerUps->empty() && ballIsOwned) {
     for (auto &powerUp: *availablePowerUps) {
       if (powerUp->getGlobalBounds().intersects(body.getGlobalBounds())) {
+        PowerUpEffect effectType = powerUp->getEffect();
         powerUp->setAssignedToPlayer();
-        Player* player = players->at(currentOwner);
+        Player* player;
+        if (effectType == PowerUpEffect::GOOD) {
+          player = players->at(currentOwner);
+        } else {
+          currentOwner = currentOwner == players->size() - 1 ? 0 : currentOwner + 1;
+          player = players->at(currentOwner);
+        }
         player->applyPowerUp(powerUp);
         break;
       }

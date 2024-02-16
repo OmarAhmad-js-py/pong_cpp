@@ -56,3 +56,7 @@ Sprite PowerUp::createSprite() const {
 FloatRect PowerUp::getGlobalBounds() {
   return m_sprite.getGlobalBounds();
 }
+
+PowerUpEffect PowerUp::getEffect() const {
+  return m_effect;
+}

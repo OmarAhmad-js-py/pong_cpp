@@ -1,7 +1,7 @@
 #include "Ball/Ball.h"
 #include "Player/Player.h"
 #include "PointCounter/PointCounter.h"
-#include "PowerUp/SlowPowerUp.h"
+#include "PowerUp/GrowPowerUp.h"
 #include "random"
 #include <SFML/Graphics.hpp>
 
@@ -21,7 +21,7 @@ int main() {
   PointCounter *pointCounter = EntityHandler::getInstance().getPointCounter();
   vector<PowerUp*> *powerUps = EntityHandler::getInstance().getPowerUps();
 
-  SlowPowerUp shrinkPowerUp;
+  GrowPowerUp shrinkPowerUp;
   shrinkPowerUp.setPosition(Vector2f(200, 200));
 
   EntityHandler::getInstance().addPowerUp(&shrinkPowerUp);
