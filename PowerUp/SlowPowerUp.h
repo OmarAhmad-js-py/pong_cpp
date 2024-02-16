@@ -9,29 +9,22 @@ using namespace sf;
 class SlowPowerUp : public PowerUp {
 public:
   SlowPowerUp()
-      : PowerUp(loadTexture(), seconds(5.0f)) {
-    printf("Power up: Created slow power-up with lifetime of %f seconds\n", this->m_duration.asSeconds());
+      : PowerUp(loadTexture("../assets/powerups/slow.png"),
+                seconds(10.0f)) {
+    printf("Power up: Created slow power-up with lifetime of %i seconds\n", (int) this->m_duration.asSeconds());
   }
 
-  void applyTo(Player &player) override {
+  void applyTo(Player *player) override {
     // decrease the player's speed
-    player.getBody()->setOutlineThickness(3);
-    player.getBody()->setOutlineColor(Color::Magenta);
-    player.setSpeed(player.initialSpeed * 0.5);
+    player->getBody()->setOutlineThickness(3);
+    player->getBody()->setOutlineColor(Color::Magenta);
+    player->setSpeed(player->initialSpeed * 0.5);
   }
 
-  void revert(Player &player) override {
+  void revert(Player *player) override {
     // increase the player's speed
-    player.getBody()->setOutlineThickness(0);
-    player.setSpeed(player.initialSpeed);
-  }
-
-  static Texture &loadTexture() {
-    static Texture texture;
-    if (!texture.loadFromFile("../assets/powerups/slow.png")) {
-      throw std::runtime_error("Failed to load slow power-up texture");
-    }
-    return texture;
+    player->getBody()->setOutlineThickness(0);
+    player->setSpeed(player->initialSpeed);
   }
 };
 

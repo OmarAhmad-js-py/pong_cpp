@@ -20,6 +20,7 @@ add_executable(pong main.cpp
         PowerUp/SlowPowerUp.h
         PowerUp/GrowPowerUp.h
         PowerUp/ShrinkPowerUp.h
+        PowerUp/PowerUp.cpp
 )
 
 target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

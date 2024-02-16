@@ -1,6 +1,4 @@
 #include "Player.h"
-#include "../EntityHandler/EntityHandler.h"
-#include "../GameHandler/GameHandler.h"
 
 Player::Player(PlayerSide side, Keyboard::Key up, Keyboard::Key down) {
   this->window = GameHandler::getInstance().getWindow();
@@ -38,7 +36,7 @@ void Player::update(int index, Time deltaTime) {
   removeExpiredPowerUps();
 
   for (PowerUp *powerUp: activePowerUps) {
-    powerUp->applyTo(*this);
+    powerUp->applyTo(this);
   }
 
   body.setSize(Vector2f(width, height));
@@ -117,7 +115,7 @@ void Player::removeExpiredPowerUps() {
                      activePowerUps.end(),
                      [this](const auto &powerUp) {
                        if (powerUp->isExpired()) {
-                         powerUp->revert(*this);
+                         powerUp->revert(this);
                          return true;
                        } else {
                          return false;

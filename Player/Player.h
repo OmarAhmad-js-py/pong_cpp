@@ -1,12 +1,12 @@
+#pragma once
+
 #ifndef PONG_PLAYER_H
 #define PONG_PLAYER_H
 
 #endif//PONG_PLAYER_H
 
-#pragma once
 #include "../PowerUp/PowerUp.h"
 #include "SFML/Graphics.hpp"
-#include <memory>
 
 using namespace sf;
 

@@ -1,16 +1,16 @@
-#include "EntityHandler.h"
 #include "../Ball/Ball.h"
 #include "../PointCounter/PointCounter.h"
-#include <iostream>
+#include "EntityHandler.h"
 
-EntityHandler::EntityHandler() = default;
+#include <iostream>
 
 void EntityHandler::init_players() {
   // Initialize players
   cout << "EntityHandler: Initializing players" << endl;
-  vector<Player> _players;
-  _players.emplace_back(PlayerSide::LEFT, Keyboard::W, Keyboard::S);
-  _players.emplace_back(PlayerSide::RIGHT, Keyboard::Up, Keyboard::Down);
+  vector<Player*> _players;
+
+  _players.push_back(new Player(PlayerSide::LEFT, Keyboard::W, Keyboard::S));
+  _players.push_back(new Player(PlayerSide::RIGHT, Keyboard::Up, Keyboard::Down));
 
   this->players = _players;
 
@@ -38,7 +38,7 @@ EntityHandler &EntityHandler::getInstance() {
   return instance;
 }
 
-vector<Player> *EntityHandler::getPlayers() {
+vector<Player*> *EntityHandler::getPlayers() {
   return &players;
 }
 
@@ -60,6 +60,15 @@ void EntityHandler::reset() {
   currentBallOwnerIndex = -1;
   ball->reset();
   for (auto &player: players) {
-    player.reset();
+    player->reset();
   }
 }
+vector<PowerUp *> *EntityHandler::getPowerUps() {
+  return &powerUps;
+}
+
+void EntityHandler::addPowerUp(PowerUp *powerUp) {
+  powerUps.push_back(powerUp);
+}
+
+EntityHandler::EntityHandler() = default;

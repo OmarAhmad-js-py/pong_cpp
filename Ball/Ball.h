@@ -1,6 +1,7 @@
 #include "../EntityHandler/EntityHandler.h"
 #include "../GameHandler/GameHandler.h"
 #include "../RandomEngine.h"
+#include "../Player/Player.h"
 #include <iostream>
 #ifndef PONG_BALL_H
 #define PONG_BALL_H
@@ -23,7 +24,8 @@ public:
   void reset();
 
 private:
-  vector<Player> *players;
+  vector<Player*> *players;
+  vector<PowerUp*> *powerUps;
   CircleShape body;
   RenderWindow *window;
   float pos_y;

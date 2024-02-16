@@ -1,59 +1,39 @@
 #ifndef PONG_POWERUP_H
 #define PONG_POWERUP_H
 
-#include "../Player/Player.h"
+#include "../EntityHandler/EntityHandler.h"
+#include "../GameHandler/GameHandler.h"
 #include <SFML/Graphics.hpp>
-
-using namespace sf;
 
 class Player;
 
+using namespace sf;
+
 class PowerUp {
 public:
-  PowerUp(Texture &texture, Time duration)
-      : m_texture(texture),
-        m_duration(duration),
-        m_sprite(texture) {
-    m_sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f);
-    m_timeRemaining = duration;
-  }
+  PowerUp(Texture &texture, Time duration);
 
-  virtual void applyTo(Player &player) = 0;
+  virtual void applyTo(Player *player) = 0;
 
-  virtual void revert(Player &player) = 0;
+  virtual void revert(Player *player) = 0;
 
-  Texture &getTexture() {
-    return m_texture;
-  };
+  virtual void draw();
 
-  Time getDuration() {
-    return m_duration;
-  };
+  bool isExpired();
 
-  Sprite &getSprite() {
-    return m_sprite;
-  };
+  void decrementTime(const Time &delta);
 
-  bool isExpired() const {
-    return m_timeRemaining <= Time::Zero;
-  };
+  void setAssignedToPlayer();
 
-  void decrementTime(const Time &delta) {
-    m_timeRemaining -= delta;
-  }
+  bool isAssignedToPlayer();
 
-  void setAssingedToPlayer() {
-    m_isAssigned = true;
-  }
+  void setPosition(const Vector2f &position);
 
-  bool isAssignedToPlayer() {
-    return m_isAssigned;
-  }
+  FloatRect getGlobalBounds();
 
-  void setPosition(const Vector2f &position) {
-    m_position = position;
-    m_sprite.setPosition(position);
-  }
+  static Texture &loadTexture(const std::string &path);
+
+  Sprite createSprite() const;
 
 protected:
   Texture &m_texture;
@@ -61,6 +41,8 @@ protected:
   Sprite m_sprite;
   bool m_isAssigned = false;
   Vector2f m_position;
+  RenderWindow *m_window;
+  float m_size = 32.0f;
 
 private:
   Time m_timeRemaining;

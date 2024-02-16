@@ -9,27 +9,18 @@ using namespace sf;
 class GrowPowerUp : public PowerUp {
 public:
   GrowPowerUp()
-      : PowerUp(loadTexture(), seconds(5.0f)) {
-    printf("Power up: Created grow power-up with lifetime of %f seconds\n", this->m_duration.asSeconds());
+      : PowerUp(loadTexture("../assets/powerups/grow.png"), seconds(5.0f)) {
+    printf("Power up: Created grow power-up with lifetime of %i seconds\n", (int) this->m_duration.asSeconds());
   }
 
-  void applyTo(Player &player) override {
+  void applyTo(Player *player) override {
     // increase the player's height
-    player.setHeight(player.initialHeight * 1.5f);
+    player->setHeight(player->initialHeight * 1.5f);
   }
 
-  void revert(Player &player) override {
+  void revert(Player *player) override {
     // decrease the player's height
-    player.setHeight(player.initialHeight);
-  }
-
-  static Texture &loadTexture() {
-    static Texture texture;
-    if (!texture.loadFromFile("../assets/powerups/grow.png")) {
-      // handle error here
-      throw std::runtime_error("Failed to load slow power-up texture");
-    }
-    return texture;
+    player->setHeight(player->initialHeight);
   }
 };
 

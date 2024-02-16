@@ -9,6 +9,8 @@ Ball::Ball() {
   cout << "Ball: Constructor got window" << endl;
   this->players = EntityHandler::getInstance().getPlayers();
   cout << "Ball: Constructor got players" << endl;
+  this->powerUps = EntityHandler::getInstance().getPowerUps();
+  cout << "Ball: Constructor got power ups" << endl;
 
   this->pos_y = static_cast<float>(this->window->getSize().y / 2);
   this->pos_x = static_cast<float>(this->window->getSize().x / 2);
@@ -34,6 +36,9 @@ Ball::Ball() {
 #pragma clang diagnostic pop
 
 void Ball::update() {
+  auto currentOwner = EntityHandler::getInstance().getCurrentBallOwnerIndex();
+  bool ballIsOwned = currentOwner != -1 && currentOwner <= players->size();
+
   // Check for collisions
   if (pos_y >= static_cast<float>(window->getSize().y) - radius || pos_y <= radius) {
     // Flip the angle if collision is on the top or bottom
@@ -41,20 +46,31 @@ void Ball::update() {
   }
   if (pos_x >= static_cast<float>(window->getSize().x) - radius || pos_x <= radius) {
 
-    auto currentOwner = EntityHandler::getInstance().getCurrentBallOwnerIndex();
-    if (currentOwner != -1 && currentOwner <= players->size()) {
+    if (ballIsOwned) {
       EntityHandler::getInstance().getPointCounter()->increment(currentOwner);
     }
 
     EntityHandler::getInstance().reset();
   }
 
+  vector<PowerUp *> *availablePowerUps = EntityHandler::getInstance().getPowerUps();
+  if (!availablePowerUps->empty() && ballIsOwned) {
+    for (auto &powerUp: *availablePowerUps) {
+      if (powerUp->getGlobalBounds().intersects(body.getGlobalBounds())) {
+        powerUp->setAssignedToPlayer();
+        Player* player = players->at(currentOwner);
+        player->applyPowerUp(powerUp);
+        break;
+      }
+    }
+  }
+
   // Handle player collision
-  std::vector<Player>::iterator it;
+  std::vector<Player *>::iterator it;
   int index = 0;
   for (it = players->begin(); it != players->end(); ++it, ++index) {
-    Player &player = *it;
-    if (player.getGlobalBounds().intersects(body.getGlobalBounds())) {
+    Player *player = *it;
+    if (player->getGlobalBounds().intersects(body.getGlobalBounds())) {
       angle = 180 - angle;
       EntityHandler::getInstance().setBallOwnerIndex(index);
       break;

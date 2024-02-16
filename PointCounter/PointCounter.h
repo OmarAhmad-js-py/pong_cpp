@@ -4,6 +4,7 @@
 #endif//PONG_POINTCOUNTER_H
 
 #include "../GameHandler/GameHandler.h"
+#include "../EntityHandler/EntityHandler.h"
 #include "../Player/Player.h"
 #include "SFML/Graphics.hpp"
 
@@ -21,6 +22,6 @@ public:
 private:
   RenderWindow *window;
   Font *font;
-  vector<Player> *players;
+  vector<Player*> *players;
   vector<int> scores;
 };
