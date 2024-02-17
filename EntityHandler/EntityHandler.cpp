@@ -70,5 +70,8 @@ vector<PowerUp *> *EntityHandler::getPowerUps() {
 void EntityHandler::addPowerUp(PowerUp *powerUp) {
   powerUps.push_back(powerUp);
 }
+Vector2f EntityHandler::getBallPosition() {
+  return ball->getBody()->getPosition();
+}
 
 EntityHandler::EntityHandler() = default;

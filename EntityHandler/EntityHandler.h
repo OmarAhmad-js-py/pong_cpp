@@ -17,6 +17,7 @@ public:
 
   vector<Player*> *getPlayers();
   Ball *getBall();
+  Vector2f getBallPosition();
   PointCounter *getPointCounter();
 
   vector<PowerUp*> *getPowerUps();
@@ -33,7 +34,8 @@ public:
 
 private:
   vector<Player*> players;
-  Ball *ball{};
+  Ball *ball;
+  Vector2f ballPosition;
   PointCounter *pointCounter;
   int currentBallOwnerIndex = -1;
   vector<PowerUp*> powerUps;

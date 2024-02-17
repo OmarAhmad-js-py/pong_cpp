@@ -113,3 +113,6 @@ void Ball::reset() {
 
   angle = static_cast<float>(startingAngle(engine));
 }
+CircleShape *Ball::getBody() {
+  return &body;
+}

@@ -64,6 +64,11 @@ int main() {
       if (event.type == Event::Closed) {
         window->close();
       }
+      if (event.type == Event::KeyPressed) {
+        if (event.key.code == Keyboard::Enter) {
+          players->at(1)->setControl(PlayerControl::AUTOMATIC);
+        }
+      }l
     }
 
     window->clear(Color::Black);

@@ -10,6 +10,11 @@
 
 using namespace sf;
 
+enum PlayerControl {
+  MANUAL = 0,
+  AUTOMATIC = 1
+};
+
 enum PlayerSide {
   LEFT = 0,
   RIGHT = 1
@@ -39,6 +44,9 @@ public:
   void applyPowerUp(PowerUp *powerUp);
   void removeExpiredPowerUps();
 
+  void setControl(PlayerControl _control);
+  PlayerControl getControl();
+
 
 private:
   Keyboard::Key up_key;
@@ -49,6 +57,8 @@ private:
   float width = 15.0f;
   float height = initialHeight;
   float speed = initialSpeed;
+
+  PlayerControl control = PlayerControl::MANUAL;
 
   PlayerSide side = PlayerSide::LEFT;
 
