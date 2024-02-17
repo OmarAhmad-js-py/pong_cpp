@@ -46,6 +46,7 @@ void Ball::update() {
     angle = -angle;
     SoundHandler::getInstance().playSound(GameSounds[BOUNCE_WALL]);
   }
+
   if (pos_x >= static_cast<float>(window->getSize().x) - radius || pos_x <= radius) {
 
     if (ballIsOwned) {
@@ -85,7 +86,10 @@ void Ball::update() {
   for (it = players->begin(); it != players->end(); ++it, ++index) {
     Player *player = *it;
     if (player->getGlobalBounds().intersects(body.getGlobalBounds())) {
-      angle = 180 - angle;
+      mt19937 engine = RandomEngine::getInstance().getEngine();
+      uniform_int_distribution<> angleDist(0,10);
+
+      angle = 180 - angle + static_cast<float>(angleDist(engine));
       SoundHandler::getInstance().playSound(GameSounds[BOUNCE_PLAYER]);
       EntityHandler::getInstance().setBallOwnerIndex(index);
       break;

@@ -68,7 +68,7 @@ int main() {
         if (event.key.code == Keyboard::Enter) {
           players->at(1)->setControl(PlayerControl::AUTOMATIC);
         }
-      }l
+      }
     }
 
     window->clear(Color::Black);
