@@ -36,3 +36,11 @@ RenderWindow *GameHandler::getWindow() {
 Font &GameHandler::getFont() {
   return this->main_font;
 }
+
+void GameHandler::setGameState(GameState state) {
+  this->gameState = state;
+}
+
+GameState GameHandler::getGameState() {
+  return this->gameState;
+}

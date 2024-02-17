@@ -1,6 +1,7 @@
 #ifndef PONG_GAMEHANDLER_H
 #define PONG_GAMEHANDLER_H
 
+#include "../MenuHandler/MenuHandler.h"
 #include "SFML/Graphics.hpp"
 
 using namespace sf;
@@ -14,6 +15,9 @@ public:
   RenderWindow *getWindow();
   Font &getFont();
 
+  void setGameState(GameState state);
+  GameState getGameState();
+
 private:
   RenderWindow window;
   Font main_font;
@@ -25,6 +29,7 @@ public:
   void operator=(const GameHandler &) = delete;
   int window_height;
   int window_width;
+  GameState gameState = GameState::MENU;
 };
 
 #endif//PONG_GAMEHANDLER_H

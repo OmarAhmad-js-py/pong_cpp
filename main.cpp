@@ -52,11 +52,13 @@ int main() {
   Clock powerUpClock;
   Time powerUpTime = seconds(5);
 
+  auto menuHandler = *new MenuHandler();
+
   /**
   * Main Loop
   */
   while (window->isOpen()) {
-
+    GameState gameState = GameHandler::getInstance().getGameState();
     Time deltaTime = clock.restart();
 
     Event event{};
@@ -71,40 +73,49 @@ int main() {
       }
     }
 
-    window->clear(Color::Black);
+    switch (gameState) {
+      case GameState::MENU:
+        menuHandler.draw();
+        break;
+      case GameState::PLAY:
+        window->clear(Color::Black);
 
-    for (int index = 0; index < players->size(); index++) {
-      Player *player = players->at(index);
-      player->draw();
-      player->update(index, deltaTime);
+
+        for (int index = 0; index < players->size(); index++) {
+          Player *player = players->at(index);
+          player->draw();
+          player->update(index, deltaTime);
+        }
+
+        ball->draw();
+        ball->update();
+
+        pointCounter->draw();
+
+        for (auto powerUp: *powerUps) {
+          powerUp->draw();
+        }
+
+        if (powerUpClock.getElapsedTime() > powerUpTime) {
+          if (EntityHandler::getInstance().getCurrentBallOwnerIndex() != -1) {
+
+            mt19937 &engine = RandomEngine::getInstance().getEngine();
+            uniform_int_distribution<> pos_x_distribution(0, (int) window->getSize().x);
+            uniform_int_distribution<> pos_y_distribution(0, (int) window->getSize().y);
+
+            int x = pos_x_distribution(engine);
+            int y = pos_y_distribution(engine);
+            PowerUp *powerUp = getRandomPowerUp();
+            if (powerUp == nullptr) return 0;
+            powerUp->setPosition(Vector2f(x, y));
+            EntityHandler::getInstance().addPowerUp(powerUp);
+          }
+
+          powerUpClock.restart();
+        }
+        break;
     }
 
-    ball->draw();
-    ball->update();
-
-    pointCounter->draw();
-
-    for (auto powerUp: *powerUps) {
-      powerUp->draw();
-    }
-
-    if (powerUpClock.getElapsedTime() > powerUpTime) {
-      if (EntityHandler::getInstance().getCurrentBallOwnerIndex() != -1) {
-
-        mt19937 &engine = RandomEngine::getInstance().getEngine();
-        uniform_int_distribution<> pos_x_distribution(0, (int) window->getSize().x);
-        uniform_int_distribution<> pos_y_distribution(0, (int) window->getSize().y);
-
-        int x = pos_x_distribution(engine);
-        int y = pos_y_distribution(engine);
-        PowerUp *powerUp = getRandomPowerUp();
-        if (powerUp == nullptr) return 0;
-        powerUp->setPosition(Vector2f(x, y));
-        EntityHandler::getInstance().addPowerUp(powerUp);
-      }
-
-      powerUpClock.restart();
-    }
 
     window->display();
   }

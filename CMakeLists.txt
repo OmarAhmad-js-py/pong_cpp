@@ -25,6 +25,8 @@ add_executable(pong main.cpp
         TextureHandler/TextureHandler.h
         SoundHandler/SoundHandler.cpp
         SoundHandler/SoundHandler.h
+        MenuHandler/MenuHandler.cpp
+        MenuHandler/MenuHandler.h
 )
 
 target_link_libraries(pong sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
