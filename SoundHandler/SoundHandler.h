@@ -9,7 +9,9 @@ using namespace std;
 using namespace sf;
 
 enum GameSoundKeys {
-  BOUNCE
+  BOUNCE_WALL,
+  BOUNCE_PLAYER,
+  COLLECT
 };
 
 extern std::map<GameSoundKeys, std::string> GameSounds;

@@ -4,6 +4,7 @@
 #include "../EntityHandler/EntityHandler.h"
 #include "../TextureHandler/TextureHandler.h"
 #include "../GameHandler/GameHandler.h"
+#include "../SoundHandler/SoundHandler.h"
 #include <SFML/Graphics.hpp>
 
 class Player;
@@ -32,6 +33,7 @@ public:
   void decrementTime(const Time &delta);
 
   void setAssignedToPlayer();
+  bool isAssigned() const;
 
   void setPosition(const Vector2f &position);
 

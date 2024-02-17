@@ -4,11 +4,16 @@
 using namespace std;
 
 std::map<GameSoundKeys, std::string> GameSounds = {
-    {BOUNCE, "../assets/sounds/bounce.wav"}};
+    {BOUNCE_WALL, "../assets/sounds/bounce_wall.wav"},
+    {BOUNCE_PLAYER, "../assets/sounds/bounce_player.wav"},
+    {COLLECT, "../assets/sounds/collect.wav"},
+};
 
 SoundHandler::SoundHandler() {
   string soundPaths[] = {
-      "../assets/sounds/bounce.wav",
+      "../assets/sounds/bounce_wall.wav",
+      "../assets/sounds/bounce_player.wav",
+      "../assets/sounds/collect.wav",
   };
 
   cout << "SoundHandler: Loading "
@@ -53,7 +58,7 @@ SoundBuffer &SoundHandler::getSound(const string &path) {
 void SoundHandler::playSound(const string &path) {
   playing_sounds.remove_if([](const sf::Sound *s) {
     if (s->getStatus() != sf::Sound::Playing) {
-      delete s; // Delete sound if not playing anymore
+      delete s;// Delete sound if not playing anymore
       return true;
     }
     return false;
@@ -72,6 +77,7 @@ void SoundHandler::playMusic(const string &path) {
   if (!background_music->openFromFile(path))
     throw runtime_error("Failed to load music: " + path);
   background_music->setLoop(true);
+  background_music->setVolume(30);
   background_music->play();
 }
 

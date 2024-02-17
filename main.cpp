@@ -46,6 +46,8 @@ int main() {
   PointCounter *pointCounter = EntityHandler::getInstance().getPointCounter();
   vector<PowerUp *> *powerUps = EntityHandler::getInstance().getPowerUps();
 
+  SoundHandler::getInstance().playMusic("../assets/sounds/background.wav");
+
   Clock clock;
   Clock powerUpClock;
   Time powerUpTime = seconds(5);
@@ -61,11 +63,6 @@ int main() {
     while (window->pollEvent(event)) {
       if (event.type == Event::Closed) {
         window->close();
-      }
-      if (event.type == Event::KeyPressed) {
-        if (event.key.code == Keyboard::Escape) {
-          SoundHandler::getInstance().playSound(GameSounds[BOUNCE]);
-        }
       }
     }
 

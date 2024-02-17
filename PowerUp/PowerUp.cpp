@@ -42,3 +42,6 @@ FloatRect PowerUp::getGlobalBounds() {
 PowerUpEffect PowerUp::getEffect() const {
   return m_effect;
 }
+bool PowerUp::isAssigned() const {
+  return m_isAssigned;
+}

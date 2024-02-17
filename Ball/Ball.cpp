@@ -44,7 +44,7 @@ void Ball::update() {
   if (pos_y >= static_cast<float>(window->getSize().y) - radius || pos_y <= radius) {
     // Flip the angle if collision is on the top or bottom
     angle = -angle;
-    SoundHandler::getInstance().playSound(GameSounds[BOUNCE]);
+    SoundHandler::getInstance().playSound(GameSounds[BOUNCE_WALL]);
   }
   if (pos_x >= static_cast<float>(window->getSize().x) - radius || pos_x <= radius) {
 
@@ -58,16 +58,21 @@ void Ball::update() {
   vector<PowerUp *> *availablePowerUps = EntityHandler::getInstance().getPowerUps();
   if (!availablePowerUps->empty() && ballIsOwned) {
     for (auto &powerUp: *availablePowerUps) {
+      if (powerUp->isAssigned()) continue;
+
       if (powerUp->getGlobalBounds().intersects(body.getGlobalBounds())) {
         PowerUpEffect effectType = powerUp->getEffect();
         powerUp->setAssignedToPlayer();
-        Player* player;
+
+        Player *player;
         if (effectType == PowerUpEffect::GOOD) {
           player = players->at(currentOwner);
         } else {
           currentOwner = currentOwner == players->size() - 1 ? 0 : currentOwner + 1;
           player = players->at(currentOwner);
         }
+
+        SoundHandler::getInstance().playSound(GameSounds[COLLECT]);
         player->applyPowerUp(powerUp);
         break;
       }
@@ -81,7 +86,7 @@ void Ball::update() {
     Player *player = *it;
     if (player->getGlobalBounds().intersects(body.getGlobalBounds())) {
       angle = 180 - angle;
-      SoundHandler::getInstance().playSound(GameSounds[BOUNCE]);
+      SoundHandler::getInstance().playSound(GameSounds[BOUNCE_PLAYER]);
       EntityHandler::getInstance().setBallOwnerIndex(index);
       break;
     }
